@@ -22,9 +22,11 @@
 *.tar.gz
 *.rar
 *.iml
+*.ipr
+
 
 # Project gen files
-.idea
+.idea/
 .allure/
 .gradle/
 allure-results/
