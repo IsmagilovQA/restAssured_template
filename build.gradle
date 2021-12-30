@@ -1,0 +1,64 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+}
+
+def junitVersion = "5.8.2",
+    junitParam = "5.8.2",
+    restAssuredVersion = "4.4.0",
+    jacksonDBVersion = "2.13.1",
+    javaFakerVersion = "1.0.2",
+    logBackClassicVersion = "1.2.10",
+    logBackCoreVersion = "1.2.10",
+    slf4jVersion = "1.7.32",
+    ownerVersion = "1.0.12"
+
+
+dependencies {
+    testImplementation(
+            "org.junit.jupiter:junit-jupiter-api:$junitVersion",
+            "org.junit.jupiter:junit-jupiter-params:$junitParam",
+            "ch.qos.logback:logback-classic:$logBackClassicVersion",
+            "ch.qos.logback:logback-core:$logBackCoreVersion"
+    )
+
+    implementation(
+            "com.fasterxml.jackson.core:jackson-databind:$jacksonDBVersion",
+            "io.rest-assured:rest-assured:$restAssuredVersion",
+            "com.github.javafaker:javafaker:$javaFakerVersion",
+            "org.slf4j:slf4j-api:$slf4jVersion",
+            "org.aeonbits.owner:owner:$ownerVersion"
+
+
+    )
+
+    testRuntimeOnly(
+            "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    )
+
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    testCompileOnly 'org.projectlombok:lombok:1.18.22'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+test {
+    useJUnitPlatform()
+
+    systemProperties System.getProperties()
+
+    testLogging {
+        events "PASSED", "FAILED", "SKIPPED"
+        showStandardStreams = true
+        exceptionFormat = 'full'
+    }
+
+    test.outputs.upToDateWhen { false }
+}
