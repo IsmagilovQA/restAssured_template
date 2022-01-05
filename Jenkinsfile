@@ -9,7 +9,11 @@ node {
         sh "./gradlew clean assemble"
     }
 
-    stage("run api tests") {
+    stage("run API tests") {
         sh "./gradlew clean test -Dlogging=${LOGGING}"  // run all tests in the project. ${LOGGING} -> parameter in Jenkins
+    }
+
+    stage("run UI tests") {
+        sh "./gradlew UI-tests:test"  // in case you want to run UI tests after API tests
     }
 }
