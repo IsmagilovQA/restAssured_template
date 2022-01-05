@@ -1,5 +1,4 @@
 node {
-
     stage("checkout repo") {
         git branch: 'master',
         credentialsId: 'e451111111111111111111111', // id from jenkins Credentials section (appears after adding login/password from github)
@@ -11,9 +10,6 @@ node {
     }
 
     stage("run api tests") {
-        sh "./gradlew clean test"  // run all tests in the project
+        sh "./gradlew clean test -Dlogging=${LOGGING}"  // run all tests in the project. ${LOGGING} -> parameter in Jenkins
     }
-
-
-
 }
